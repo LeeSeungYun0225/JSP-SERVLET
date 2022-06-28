@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-@WebServlet("/hello")
-public class Nana extends HttpServlet {
+@WebServlet("/notice-reg")
+public class NoticeReg extends HttpServlet {
 	
 	
 	// request는 클라이언트로부터의 입력/ 요구사항
@@ -33,27 +33,14 @@ public class Nana extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		
-		int cnt = 5;
-		//파라미터는 서버에 요청시 url이 같아야함 http://localhost:8080/hello?req=?
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		//쿼리스트링이 너무 길어지는 문제 발생 
+		//html에서 method="post" 사용하면 해결 
 		
-		String temp =request.getParameter("req");
 		
-		if(temp != null && !temp.equals(""))
-		{
-			cnt =Integer.parseInt(temp);
-		}
+		out.println(title);
+		out.println(content);
 		
-		for(int i=0;i<cnt;i++)
-		{
-			out.println(i+1+ " : 안녕 Servlet!!<br >");
-			//브라우저에 컨텐츠 형식을 알려주지 않으면
-			//자의적으로 해석하여 보여준다. 
-			// 따라서 출력 형식을 지정하여 
-			//브라우저가 달라져도 동일한 결과를 나타낼 수 있게 해야함
-			
-			//한글이 깨지는 이유
-			// 1) 한글을 지원하지 않는 문자코드로 인코딩 
-			// 2) 서버에서는 UTF-8로 인코딩하였으나 브라우저가 다른 코드로 잘못 해석 
-		}
 	}
 }
