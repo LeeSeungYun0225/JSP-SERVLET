@@ -19,6 +19,17 @@ public class Calculator extends HttpServlet{
 		int first = Integer.parseInt(request.getParameter("first"));
 		int second = Integer.parseInt(request.getParameter("second"));
 		
-		out.println(first+second);
+		String in = request.getParameter("operator");
+		
+		if(in.equals("plus"))
+		{
+			out.println(first+second);
+		}
+		else
+		{
+			out.println(first-second);
+		}
+		
+		
 	}
 }
