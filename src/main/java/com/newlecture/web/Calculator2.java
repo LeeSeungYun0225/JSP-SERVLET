@@ -20,6 +20,9 @@ public class Calculator2 extends HttpServlet{
 		Cookie[] cookies = request.getCookies();
 		//쿠키는 클라이언트가 가지고 있다가 통신시마다 사용하는 데이터 
 		//배열의 형태로 들어온다 
+		//쿠키의 생존주기는 별도로 설정하지 않으면 브라우저 종료시 함께 사라짐
+		// 설정해주면 브라우저 닫혀도 유지할수 있다.
+		//메모리 혹은 파일로 저장 
 		
 	
 		PrintWriter out = response.getWriter();
@@ -97,8 +100,10 @@ public class Calculator2 extends HttpServlet{
 			//쿠키에는 문자열만 저장됨 
 			Cookie valueCookie = new Cookie("value1",String.valueOf(v));
 			Cookie opCookie = new Cookie("operator1",in);
-			valueCookie.setPath("/");// 모튼 url에 대해 쿠키를 가져와라
-			opCookie.setPath("/");
+			valueCookie.setPath("/calculator2");
+			valueCookie.setMaxAge(10);//만료날짜 설정 (초단위)
+			opCookie.setPath("/calculator2"); // 쿠키의 경로 지정 >> 효과적인 쿠키 사용 가능 
+			opCookie.setMaxAge(10);
 			response.addCookie(valueCookie);
 			response.addCookie(opCookie);
 			// 이 문장을 통해 클라이언트에게 쿠키가 전달됨 
@@ -109,3 +114,18 @@ public class Calculator2 extends HttpServlet{
 
 	}
 }
+
+/*application :: 전역 범위에서 사용하는 저장공간
+ >> 생명주기는 was가 시작해서 종료할때 까지 유지
+  >> was 서버의 메모리에 저장 
+  
+
+Session : 세션-사용자(프로세스) 범위에서 사용하는 저장 공간
+ >> 생명주기는 세션이 시작해서 종료될때까지
+  >> was 서버의 메모리에 저장
+  
+ Cookie : web 브라우저별 지정한 저장소 
+  >> 생명주기는 브라우저에 전달한 시간부터 만료시간까지
+  >> web브라우저 메모리 혹은 파일에 저장  >> 서버의 생명주기와 무관하게 유지할 수 있다.
+  */
+
