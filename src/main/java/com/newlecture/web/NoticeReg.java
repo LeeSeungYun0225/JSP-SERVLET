@@ -37,7 +37,6 @@ public class NoticeReg extends HttpServlet {
 		
 		
 		//UTF-8로 설정 안하고 필터를 사용해보기 
-		
 		response.setContentType("text/html; charset=UTF-8");
 		//파일의 형식 : html , 텍스트 형식 : UTF8로 보낸다고 알려주는 문장 
 		

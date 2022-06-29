@@ -107,6 +107,11 @@ public class Calculator2 extends HttpServlet{
 			response.addCookie(valueCookie);
 			response.addCookie(opCookie);
 			// 이 문장을 통해 클라이언트에게 쿠키가 전달됨 
+			
+			
+			
+			
+			response.sendRedirect("add3.html"); // 다른페이지로 리디렉트 해주는 기능 
 
 		}	
 		
