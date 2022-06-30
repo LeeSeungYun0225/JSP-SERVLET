@@ -76,7 +76,7 @@ public class Calculator3 extends HttpServlet{
 			expCookie.setMaxAge(0);
 		}
 		
-		expCookie.setPath("/calculator3");
+		expCookie.setPath("/");
 		response.addCookie(expCookie);
 		response.sendRedirect("/calculatorPage");
 

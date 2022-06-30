@@ -102,7 +102,7 @@ public class CalculatorN extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
-	Cookie[] cookies = request.getCookies();
+		Cookie[] cookies = request.getCookies();
 		
 		String exp = "0";
 		if(cookies != null)

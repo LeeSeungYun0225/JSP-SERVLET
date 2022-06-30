@@ -1,3 +1,11 @@
+
+<%
+ int a = 0;
+ int y = 2;
+
+%> 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +31,7 @@ padding:0px 5px;}</style>
 		<form action = "calculator3" method="post">
 			<table>
 				<tr>
-					<td class ="output" colspan="4"></td>
+					<td class ="output" colspan="4">${a+y}</td>
 				</tr>
 				<tr>
 					<td><input name="operator" type="submit" value="CE"/></td>
