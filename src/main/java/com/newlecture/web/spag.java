@@ -1,6 +1,8 @@
 package com.newlecture.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,6 +42,15 @@ public class spag extends HttpServlet{
 		// 리디렉트 : 현재 작업한 내용과 무관하게 연결
 		
 		request.setAttribute("result", result);
+		
+		String[] names = {"num1","num2"};
+		request.setAttribute("names", names);
+		
+		Map<String,Object> notice = new HashMap<String,Object>();
+		notice.put("id", 1);
+		notice.put("title", "ELtest");
+		request.setAttribute("map",notice);
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("spa.jsp");
 		

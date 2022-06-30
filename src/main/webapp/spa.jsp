@@ -11,6 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%=request.getAttribute("result") %>입니다.
+	${result}입니다.
+	${names[1]}
+	${map.id}
+	${map.title}
 </body>
 </html>
