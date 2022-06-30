@@ -1,5 +1,24 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+ Class.forName("com.mysql.cj.jdbc.Driver");
+ String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+ String adminId = "root";
+ String adminPass = "!Ekdma0607";
+ Connection con = DriverManager.getConnection(url,adminId,adminPass);
+ 
+ String sql = sql = "select * from notice";
+ PreparedStatement statement = statement = con.prepareStatement(sql);
+ 
+ ResultSet result=result = statement.executeQuery();
+
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -174,55 +193,22 @@
 					</thead>
 					<tbody>
 							
-					<tr>
-						<td>8</td>
-						<td class="title indent text-align-left"><a href="detail.html">스프링 8강까지의 예제 코드</a></td>
-						<td>newlec</td>
-						<td>
-							2019-08-18		
-						</td>
-						<td>146</td>
-					</tr>
+					<% while(result.next())
+					{%>
+						
+					
 							
 					<tr>
-						<td>7</td>
-						<td class="title indent text-align-left"><a href="detail.html">스프링 DI 예제 코드</a></td>
-						<td>newlec</td>
+						<td><%=result.getInt("ID")%></td>
+						<td class="title indent text-align-left"><a href="detail.html"><%= result.getString("TITLE")%></a></td>
+						<td><%=result.getString("WRITER_ID") %></td>
 						<td>
-							2019-08-15		
+							<%=result.getDate("REGDATE") %>	
 						</td>
-						<td>131</td>
+						<td><%=result.getInt("HIT") %></td>
 					</tr>
 							
-					<tr>
-						<td>6</td>
-						<td class="title indent text-align-left"><a href="detail.html">뉴렉쌤 9월 초 국기과정 모집 안내</a></td>
-						<td>newlec</td>
-						<td>
-							2019-06-11		
-						</td>
-						<td>517</td>
-					</tr>
-							
-					<tr>
-						<td>5</td>
-						<td class="title indent text-align-left"><a href="detail.html">뉴렉처 강의 수강 방식 안내</a></td>
-						<td>newlec</td>
-						<td>
-							2019-05-24		
-						</td>
-						<td>448</td>
-					</tr>
-							
-					<tr>
-						<td>4</td>
-						<td class="title indent text-align-left"><a href="detail.html">자바 구조적인 프로그래밍 강의 예제 파일</a></td>
-						<td>newlec</td>
-						<td>
-							2019-04-24		
-						</td>
-						<td>520</td>
-					</tr>
+					<% }%>
 					
 					
 					</tbody>
@@ -297,3 +283,10 @@
     </body>
     
     </html>
+    
+    
+    <%
+    	con.close();
+    	statement.close();
+    	result.close();
+    %>
