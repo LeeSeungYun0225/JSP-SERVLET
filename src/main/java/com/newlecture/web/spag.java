@@ -51,6 +51,11 @@ public class spag extends HttpServlet{
 		notice.put("title", "ELtest");
 		request.setAttribute("map",notice);
 		
+		String sec = "tester";
+	
+		
+		request.setAttribute("aa",sec);
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("spa.jsp");
 		
