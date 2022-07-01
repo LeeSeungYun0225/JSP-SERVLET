@@ -200,7 +200,7 @@
 							
 					<tr>
 						<td><%=result.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail.jsp?id=<%=result.getInt("ID")%>"><%= result.getString("TITLE")%></a></td>
+						<td class="title indent text-align-left"><a href="detail?id=<%=result.getInt("ID")%>"><%= result.getString("TITLE")%></a></td>
 						<td><%=result.getString("WRITER_ID") %></td>
 						<td>
 							<%=result.getDate("REGDATE") %>	
