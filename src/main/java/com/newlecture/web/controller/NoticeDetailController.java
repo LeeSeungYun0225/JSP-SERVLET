@@ -48,12 +48,7 @@ public class NoticeDetailController extends HttpServlet {
 			request.setAttribute("notice",notice);
 			//데이터들을 하나의 객체에 담아서 attribute로 전달 
 
-			request.setAttribute("title", title);
-			request.setAttribute("writer_id", writer_id);
-			request.setAttribute("hit", hit);
-			request.setAttribute("files", files);
-			request.setAttribute("content", content);
-			request.setAttribute("date", date);
+	
 			
 			
 			con.close();

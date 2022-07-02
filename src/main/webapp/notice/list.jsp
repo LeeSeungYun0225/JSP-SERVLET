@@ -1,23 +1,11 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="com.newlecture.web.entity.Notice"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%
- Class.forName("com.mysql.cj.jdbc.Driver");
- String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
- String adminId = "root";
- String adminPass = "!Ekdma0607";
- Connection con = DriverManager.getConnection(url,adminId,adminPass);
- 
- String sql = sql = "select * from notice";
- PreparedStatement statement = con.prepareStatement(sql);
- 
- ResultSet result = statement.executeQuery();
 
-%>
+	
+
 
 
 <!DOCTYPE html>
@@ -193,23 +181,25 @@
 					</thead>
 					<tbody>
 							
-					<% while(result.next())
-					{%>
+
+					<%
+					List<Notice> list = (List<Notice>)request.getAttribute("list");
+					for(Notice n : list){
 						
-					
+						pageContext.setAttribute("n",n);
+						%>
 							
 					<tr>
-						<td><%=result.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail?id=<%=result.getInt("ID")%>"><%= result.getString("TITLE")%></a></td>
-						<td><%=result.getString("WRITER_ID") %></td>
+						<td>${n.id}</td>
+						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
+						<td>${n.writer_id}</td>
 						<td>
-							<%=result.getDate("REGDATE") %>	
+						${n.date}
 						</td>
-						<td><%=result.getInt("HIT") %></td>
+						<td>${n.hit}</td>
 					</tr>
-							
-					<% }%>
-					
+
+					<%} %>
 					
 					</tbody>
 				</table>
@@ -285,8 +275,4 @@
     </html>
     
     
-    <%
-    	con.close();
-    	statement.close();
-    	result.close();
-    %>
+    
