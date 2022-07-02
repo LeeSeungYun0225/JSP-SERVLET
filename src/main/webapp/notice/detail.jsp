@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
+ 
 
     
 <!DOCTYPE html>
@@ -154,25 +154,25 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=request.getAttribute("title") %></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3">${notice.title }</td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=request.getAttribute("date") %>	</td>
+									<td class="text-align-left text-indent" colspan="3">${notice.date }	</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=request.getAttribute("writer_id") %></td>
+									<td>${notice.writer_id}</td>
 									<th>조회수</th>
-									<td><%=request.getAttribute("hit") %></td>
+									<td>${notice.hit}</td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"><%=request.getAttribute("files") %></td>
+									<td colspan="3">${notice.files }</td>
 								</tr>
 						
 								<tr class="content">
-									<td colspan="4"><%=request.getAttribute("content") %></td>
+									<td colspan="4">${notice.content }</td>
 								</tr>
 							</tbody>
 						</table>

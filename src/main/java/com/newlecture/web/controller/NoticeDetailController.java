@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.newlecture.web.entity.Notice;
+
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
 	
@@ -40,6 +42,11 @@ public class NoticeDetailController extends HttpServlet {
 			String files =result.getString("FILES");
 			String content=result.getString("CONTENT");
 			Date date =result.getDate("REGDATE");
+			
+			
+			Notice notice = new Notice(id,title,writer_id,date,hit,files,content);
+			request.setAttribute("notice",notice);
+			//데이터들을 하나의 객체에 담아서 attribute로 전달 
 
 			request.setAttribute("title", title);
 			request.setAttribute("writer_id", writer_id);
@@ -47,6 +54,7 @@ public class NoticeDetailController extends HttpServlet {
 			request.setAttribute("files", files);
 			request.setAttribute("content", content);
 			request.setAttribute("date", date);
+			
 			
 			con.close();
 			statement.close();
