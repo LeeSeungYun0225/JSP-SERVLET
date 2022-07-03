@@ -65,7 +65,7 @@ public class NoticeDetailController extends HttpServlet {
 		//redirect//
 		 //foward//
 		 try {
-			request.getRequestDispatcher("/notice/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace()	;

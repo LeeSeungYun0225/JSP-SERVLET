@@ -24,7 +24,7 @@ public class NoticeListController  extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	{
-
+ 
 
 		List<Notice> list = new ArrayList<Notice>();
 		
@@ -71,8 +71,9 @@ public class NoticeListController  extends HttpServlet {
 		 request.setAttribute("list", list);
 		 
 		 try {
-			request.getRequestDispatcher("/notice/list.jsp")
-			 .forward(request,response);
+			request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp")
+			 .
+			 forward(request,response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
