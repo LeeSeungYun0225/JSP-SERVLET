@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     
 <!DOCTYPE html>
@@ -158,13 +158,13 @@
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3">${notice.date }	</td>
+									<td class="text-align-left text-indent" colspan="3">	<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value = "${notice.date }"/>	</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
 									<td>${notice.writer_id}</td>
 									<th>조회수</th>
-									<td>${notice.hit}</td>
+									<td><fmt:formatNumber value = "${notice.hit}"/></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
