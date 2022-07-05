@@ -101,10 +101,11 @@ public class NoticeService {
 	{
 		int count = 0;
 		
-		String sql = "SELECT COUNT(ID) COUNT FROM("
-				+ "SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM ,nn.*"
-				+ " FROM (SELECT * FROM NOTICE n WHERE n." + field +" LIKE ?) nn";
-
+		String sql ="SELECT COUNT(ID) COUNT FROM("
+				+ "				SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM ,nn.*"
+				+ "				 FROM (SELECT * FROM NOTICE n WHERE n."+ field + " LIKE ?) nn ) b";
+				
+				
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -120,7 +121,11 @@ public class NoticeService {
 			 
 			 ResultSet result = statement.executeQuery();
 			 
-			 count = result.getInt("count");
+			 if(result.next())
+			 {
+				 count = result.getInt("count");
+			 }
+			
 			 
 			 
 			 

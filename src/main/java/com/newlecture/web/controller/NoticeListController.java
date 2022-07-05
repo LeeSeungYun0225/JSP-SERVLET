@@ -29,9 +29,13 @@ public class NoticeListController  extends HttpServlet {
 		String query_ = "";
 		int page_ = 1;
 		List<Notice> list;
+		int count_ = 1;
+		
+		
 		String field = request.getParameter("f");
 		String query = request.getParameter("q");
 		String page = request.getParameter("p");	
+		
 		
 		NoticeService service = new NoticeService();
 		if(field!= null && !field.equals(""))
@@ -47,9 +51,12 @@ public class NoticeListController  extends HttpServlet {
 			query_ = query;
 		}
 		
+		count_ = service.getNoticeCount(field_,query_);
+		
 		list = service.getNoticeList(field_,query_,page_);
 
 		 request.setAttribute("list", list);
+		 request.setAttribute("count", count_);
 		 
 		 try {
 			request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp")
