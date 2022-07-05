@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.newlecture.web.entity.Notice;
+import com.newlecture.web.service.NoticeService;
+import com.newlecture.web.service.NoticeService.IdTitle;
 
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
@@ -22,46 +24,26 @@ public class NoticeDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	{
 		int id = Integer.parseInt(request.getParameter("id"));
+		
+		
+		
+		NoticeService service = new NoticeService();
+		
 
-		 try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			String adminId = "root";
-			String adminPass = "!Ekdma0607";
-			String sql = sql = "select * from notice WHERE id=?";
-			Connection con = DriverManager.getConnection(url,adminId,adminPass);
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1,id);
-			ResultSet result = statement.executeQuery();
-			result.next();
-
-			String title =result.getString("TITLE") ;
-			String writer_id=result.getString("WRITER_ID"); 
-			int hit=result.getInt("HIT");
-			String files =result.getString("FILES");
-			String content=result.getString("CONTENT");
-			Date date =result.getDate("REGDATE");
-			
-			
-			Notice notice = new Notice(id,title,writer_id,date,hit,files,content);
-			request.setAttribute("notice",notice);
-			//데이터들을 하나의 객체에 담아서 attribute로 전달 
-
+		
+		IdTitle nextOne = service.getNextNotice(id);
+		IdTitle prevOne =  service.getPrevNotice(id);
+		
+		System.out.println("next" + nextOne.getId() + nextOne.getTitle());
+		System.out.println("prev" + prevOne.getId() + prevOne.getTitle());
+		Notice notice = service.getNotice(id);
+		
+		request.setAttribute("notice",notice);
+		request.setAttribute("prevOne", prevOne);	
+		request.setAttribute("nextOne", nextOne);
+		
+		
 	
-			
-			
-			con.close();
-			statement.close();
-			result.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-		 
-		 
-		 
 		//redirect//
 		 //foward//
 		 try {

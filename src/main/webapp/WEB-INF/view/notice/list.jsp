@@ -184,7 +184,7 @@
 					</thead>
 					<tbody>
 							
-
+				
 					<c:forEach var="n" items = "${list}">
 							
 					<tr>
@@ -199,6 +199,7 @@
 
 					</c:forEach>
 					
+				
 					
 					
 					</tbody>

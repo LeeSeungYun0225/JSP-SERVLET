@@ -18,7 +18,38 @@ public class NoticeService {
 		
 		 
 	}
-	
+	public class IdTitle{
+		private int id;
+		private String title;
+		public IdTitle(IdTitle in) {
+			// TODO Auto-generated constructor stub
+			
+			id = in.getId();
+			title = in.getTitle();
+		}
+		
+		public IdTitle(int id_,String title_) {
+			// TODO Auto-generated constructor stub
+			
+			id = id_;
+			title = title_;
+		}
+		public String getTitle() {
+			return title;
+		}
+		
+		public int getId() {
+			return id;
+		}
+		
+		public void setTitle_(String title_) {
+			this.title = title_;
+		}
+		
+		public void setId_(int id_) {
+			this.id = id_;
+		}
+	}
 	
 	public List<Notice> getNoticeList(){
 		return getNoticeList("title","",1);
@@ -126,7 +157,7 @@ public class NoticeService {
 				 count = result.getInt("count");
 			 }
 			
-			 
+			 System.out.println(count);
 			 
 			 
 			 result.close();
@@ -201,19 +232,15 @@ public class NoticeService {
 		
 	}
 	
-	public Notice getPrevNotice(int id)
+	public IdTitle getPrevNotice(int id)
 	{
-		
-		
-		Notice notice = new Notice();
-		
-		String sql = "SELECT *"
-				+ "FROM NOTICE "
-				+ "WHERE id IN"
-				+ "(SELECT id FROM NOTICE"
-				+ "WHERE REGDATE < (SELECT REGDATE FROM NOTICE WHERE id = ?))"
-				+ "ORDER BY REGDATE DESC"
-				+ "LIMIT 1";
+		int id_=0;
+		String title_ = null;
+		IdTitle notice = new IdTitle(id_,title_);
+		String sql = "SELECT id,title FROM NOTICE WHERE id IN"
+				+ "(SELECT id FROM NOTICE WHERE REGDATE < (SELECT REGDATE FROM NOTICE WHERE id = ?))"
+				+ "ORDER BY REGDATE DESC LIMIT 1";
+	
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -230,18 +257,13 @@ public class NoticeService {
 			 
 			 ResultSet result = statement.executeQuery();
 			 
-			 while(result.next()) {
-				 int id_ = result.getInt("ID");
-				 String title = result.getString("TITLE");
-				 String writer_id= result.getString("WRITER_ID");
-				 Date regdate = result.getDate("REGDATE");
-				 int hit = result.getInt("HIT");
-				 String files = result.getString("FILES");
-				 String content = result.getString("CONTENT");
-				 notice = new Notice(id_,title,writer_id,regdate,hit,files,content);
+			 if(result.next()) {
+				 id_ = result.getInt("ID");
+				 title_ = result.getString("TITLE");
+				 notice = new IdTitle(id_,title_);
 			 }
-			 
-			 
+
+				
 			 
 			 result.close();
 			 con.close();
@@ -260,20 +282,18 @@ public class NoticeService {
 		
 		
 		return notice;
+		
 	}
 	
-	public Notice getNextNotice(int id)
+	public IdTitle getNextNotice(int id)
 	{
 		
-		Notice notice = new Notice();
-		
-		String sql = "SELECT *"
-				+ "FROM NOTICE "
-				+ "WHERE id IN"
-				+ "(SELECT id FROM NOTICE"
-				+ "WHERE REGDATE > (SELECT REGDATE FROM NOTICE WHERE id = ?))"
-				+ "ORDER BY REGDATE ASC"
-				+ "LIMIT 1";
+		int id_=0;
+		String title_ = null;
+		IdTitle notice = new IdTitle(id_,title_);
+		String sql = "SELECT id,title FROM NOTICE WHERE id IN"
+				+ "(SELECT id FROM NOTICE WHERE REGDATE > (SELECT REGDATE FROM NOTICE WHERE id = ?))"
+				+ "ORDER BY REGDATE ASC LIMIT 1";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -290,18 +310,13 @@ public class NoticeService {
 			 
 			 ResultSet result = statement.executeQuery();
 			 
-			 while(result.next()) {
-				 int id_ = result.getInt("ID");
-				 String title = result.getString("TITLE");
-				 String writer_id= result.getString("WRITER_ID");
-				 Date regdate = result.getDate("REGDATE");
-				 int hit = result.getInt("HIT");
-				 String files = result.getString("FILES");
-				 String content = result.getString("CONTENT");
-				 notice = new Notice(id_,title,writer_id,regdate,hit,files,content);
+			 if(result.next()) {
+				 id_ = result.getInt("ID");
+				 title_ = result.getString("TITLE");
+				 notice = new IdTitle(id_,title_);
 			 }
-			 
-			 
+
+				
 			 
 			 result.close();
 			 con.close();
@@ -320,5 +335,13 @@ public class NoticeService {
 		
 		
 		return notice;
+		
+		
+		
 	}
+	
+	
+	
+	
+
 }

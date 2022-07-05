@@ -202,7 +202,13 @@
 								
 								<tr>
 									<th>다음글</th>
-									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
+									<c:if test = "${nextOne.id==0}">
+										<td colspan="3" class="text-align-left text-indent">다음 글이 없습니다.</td>
+									</c:if>
+									<c:if test = "${nextOne.id!=0}">
+										<td colspan="3" class="text-align-left text-indent"><a class = "text-blue text-strong" href="?id=${nextOne.id}">${nextOne.title}</a></td>
+									</c:if>
+									
 								</tr>
 								
 									
@@ -210,7 +216,12 @@
 								
 								<tr>
 									<th>이전글</th>
-									<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="">스프링 DI 예제 코드</a></td>
+									<c:if test = "${prevOne.id==0}">
+										<td colspan="3" class="text-align-left text-indent">이전 글이 없습니다.</td>
+									</c:if>
+									<c:if test = "${prevOne.id!=0}">
+										<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="?id=${prevOne.id}">${prevOne.title }</a></td>
+									</c:if>
 								</tr>
 								
 								
