@@ -25,24 +25,29 @@ public class NoticeListController  extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	{
-		String field ="";
-		String query = "";
+		String field_ ="title";
+		String query_ = "";
+		int page_ = 1;
 		List<Notice> list;
-		field = request.getParameter("f");
-		query = request.getParameter("q");
-		
+		String field = request.getParameter("f");
+		String query = request.getParameter("q");
+		String page = request.getParameter("p");	
 		
 		NoticeService service = new NoticeService();
-		if(field== null)
+		if(field!= null && !field.equals(""))
 		{
-			list = service.getNoticeList();
+			field_ = field;
 		}
-		else
+		if(page!= null && !page.equals(""))
 		{
-			list = service.getNoticeList(field,query,1);
+			page_ = Integer.parseInt(page);
+		}
+		if(query!=null && !query.equals(""))
+		{
+			query_ = query;
 		}
 		
-		
+		list = service.getNoticeList(field_,query_,page_);
 
 		 request.setAttribute("list", list);
 		 
