@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.newlecture.web.entity.Notice;
+import com.newlecture.web.entity.NoticeView;
 import com.newlecture.web.service.NoticeService;
 
 
@@ -28,7 +29,7 @@ public class NoticeListController  extends HttpServlet {
 		String field_ ="title";
 		String query_ = "";
 		int page_ = 1;
-		List<Notice> list;
+		List<NoticeView> list;
 		int count_ = 1;
 		
 		

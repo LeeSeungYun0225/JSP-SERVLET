@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.newlecture.web.entity.Notice;
+import com.newlecture.web.entity.NoticeView;
 
 public class NoticeService {
 	
@@ -51,23 +52,23 @@ public class NoticeService {
 		}
 	}
 	
-	public List<Notice> getNoticeList(){
+	public List<NoticeView> getNoticeList(){
 		return getNoticeList("title","",1);
 		
 	}
 	
-	public List<Notice> getNoticeList(int page){
+	public List<NoticeView> getNoticeList(int page){
 		return  getNoticeList("title","",page);
 		
 	}
 	
-	public List<Notice> getNoticeList(String field/*title or writer_id*/,String query/*A*/,int page){
+	public List<NoticeView> getNoticeList(String field/*title or writer_id*/,String query/*A*/,int page){
 		
-		List<Notice> list = new ArrayList<Notice>();
+		List<NoticeView> list = new ArrayList<NoticeView>();
 	
 		String sql = "SELECT * FROM("
 				+ "				SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM , note.*"
-				+ "				 FROM  (SELECT * FROM notice WHERE " + field + " LIKE ?) as note"
+				+ "				 FROM  (SELECT * FROM NOTICE_VIEW WHERE " + field + " LIKE ?) as note"
 				+ "				  ) as b"
 				+ "				 	WHERE NUM BETWEEN ? AND ?";
 				
@@ -85,19 +86,25 @@ public class NoticeService {
 			 statement.setString(1, "%"+query+"%");
 			 statement.setInt(2,1+(page-1)*10);
 			 statement.setInt(3,page*10);
-			 
-			 
+			 int cmtcount;
+			 String files;
+			 int hit;
+			 int id;
+			 String title;
+			 String writer_id;
+			 Date regdate;
+
 			 ResultSet result = statement.executeQuery();
 			 
 			 while(result.next()) {
-				 int id = result.getInt("ID");
-				 String title = result.getString("TITLE");
-				 String writer_id= result.getString("WRITER_ID");
-				 Date regdate = result.getDate("REGDATE");
-				 int hit = result.getInt("HIT");
-				 String files = result.getString("FILES");
-				 String content = result.getString("CONTENT");
-				 Notice notice = new Notice(id,title,writer_id,regdate,hit,files,content);
+				 id = result.getInt("ID");
+				 title = result.getString("TITLE");
+				 writer_id= result.getString("WRITER_ID");
+				 regdate = result.getDate("REGDATE");
+				 hit = result.getInt("HIT");
+				 files = result.getString("FILES");
+				 cmtcount = result.getInt("COMMENT_COUNT");
+				 NoticeView notice = new NoticeView(id,title,writer_id,regdate,hit,files,cmtcount);
 				 list.add(notice);
 			 }
 			 
