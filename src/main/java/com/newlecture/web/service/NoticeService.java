@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,88 @@ public class NoticeService {
 		
 		 
 	}
+	
+	
+	
+	public int removeNoticeAll(int[] ids)// 공지를 삭제하고 몇개가 삭제되었는지 반환
+	{
+		int deleted = 0;
+		
+		String params = "";
+		
+		for(int i=0;i<ids.length;i++)
+		{
+			params+=ids[i];
+			if(i != ids.length-1)
+			{
+				params+=",";
+			}
+		}
+		
+		
+		String sql = "DELETE FROM NOTICE WHERE ID IN("+params+")";
+		
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+			 String adminId = "root";
+			 String adminPass = "!Ekdma0607";
+			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 
+			 
+			 Statement statement = con.createStatement();
+			 deleted = statement.executeUpdate(sql);
+			 // executeUpdate는 insert / delete / update시에 사용하며
+			 // 성공한 튜플만큼 개수를 반환한다. 
+			 //statement는 PreparedStatement에비해 경량화되어있음
+			 
+		
+			 con.close();
+			 statement.close();
+			
+			 
+			 
+			 
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return deleted;
+	}
+	public int pubNoticeAll(int[] ids)//공지를 공개하고 몇개가 공개되었는지 반환
+	{
+		return 0;
+	}
+	
+	public boolean insertNotice(Notice notice) //공지를 올리고 성공시 true 실패시 false 반환
+	{
+		return true;
+	}
+	
+	public boolean deleteNotice(int id) // 공지를 삭제하고 성공시 true 반환
+	{
+		
+		
+		return true;
+	}
+	
+	public boolean updateNotice(Notice notice)//공지를 업데이트하고 성공시 true 반환
+	{
+		return true;
+	}
+	
+	public List<Notice> getNoticeNewestList(){// 최신 공지를 가져온다
+		return null;
+	}
+	
+	
+	
+	
+	
+	
 	public class IdTitle{
 		private int id;
 		private String title;
@@ -346,7 +429,10 @@ public class NoticeService {
 		
 		
 	}
-	
+
+
+
+
 	
 	
 	
