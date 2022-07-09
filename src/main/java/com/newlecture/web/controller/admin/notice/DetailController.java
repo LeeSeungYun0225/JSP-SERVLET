@@ -1,4 +1,4 @@
-package com.newlecture.web.controller.notice;
+package com.newlecture.web.controller.admin.notice;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import com.newlecture.web.entity.Notice;
 import com.newlecture.web.service.NoticeService;
 import com.newlecture.web.service.NoticeService.IdTitle;
 
-@WebServlet("/notice/detail")
+@WebServlet("/admin/board/notice/detail")
 public class DetailController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,12 +46,20 @@ public class DetailController extends HttpServlet {
 		//redirect//
 		 //foward//
 		 try {
-			request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/admin/board/notice/detail.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace()	;
 		}
 		 
 		 
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		
+		System.out.println("id ::: " + request.getParameter("id"));
 	}
 }
