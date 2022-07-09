@@ -29,8 +29,7 @@ public class CharacterEncodingFilter implements Filter {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
-		
-		System.out.println("hello filter");
+	
 		// TODO Auto-generated method stub
 
 	}

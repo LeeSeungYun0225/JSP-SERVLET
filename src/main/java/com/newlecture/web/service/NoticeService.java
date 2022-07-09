@@ -78,7 +78,42 @@ public class NoticeService {
 	
 	public boolean insertNotice(Notice notice) //공지를 올리고 성공시 true 실패시 false 반환
 	{
-		return true;
+		
+		String sql = "INSERT INTO NOTICE(TITLE,CONTENT,WRITER_ID,PUBLIC,REGDATE) VALUES(?,?,?,?,now())";
+		int result = 0;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+			 String adminId = "root";
+			 String adminPass = "!Ekdma0607";
+			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 
+			 
+			 PreparedStatement statement = con.prepareStatement(sql);
+			 statement.setString(1, notice.getTitle());
+			 statement.setString(2,notice.getContent());
+			 statement.setString(3,notice.getWriter_id());
+			 statement.setInt(4, notice.getPub()?1:0);
+			  result = statement.executeUpdate();
+			 // executeUpdate는 insert / delete / update시에 사용하며
+			 // 성공한 튜플만큼 개수를 반환한다. 
+			 //statement는 PreparedStatement에비해 경량화되어있음
+			 
+			 
+		
+			 con.close();
+			 statement.close();
+			
+			 
+			 
+			 
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result!=0?true:false;
 	}
 	
 	public boolean deleteNotice(int id) // 공지를 삭제하고 성공시 true 반환

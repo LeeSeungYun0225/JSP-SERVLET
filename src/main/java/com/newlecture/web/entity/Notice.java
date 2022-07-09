@@ -10,7 +10,7 @@ public class Notice {
 	private String content;
 	private Date date;
 	private int id;
-	
+	private boolean pub;
 	
 	public Notice(int id,String title, String writer_id, Date date, int hit, String files, String content) {
 		super();
@@ -21,12 +21,36 @@ public class Notice {
 		this.content = content;
 		this.date = date;
 		this.id = id;
+		this.pub = false;
 	}
 	
+	
+	public Notice(int id,String title, String writer_id, Date date, int hit, String files, String content,boolean pub) {
+		super();
+		this.title = title;
+		this.writer_id = writer_id;
+		this.hit = hit;
+		this.files = files;
+		this.content = content;
+		this.date = date;
+		this.id = id;
+		this.pub = pub;
+	}
+	
+	public void setPub(boolean pub) {
+		this.pub = pub;
+	}
+	public boolean getPub() {
+		return pub;
+	}
+	
+
+	
+
 	@Override
 	public String toString() {
 		return "Notice [title=" + title + ", writer_id=" + writer_id + ", hit=" + hit + ", files=" + files
-				+ ", content=" + content + ", date=" + date + ", id=" + id + "]";
+				+ ", content=" + content + ", date=" + date + ", id=" + id + ", pub=" + pub + "]";
 	}
 
 	public Notice() {

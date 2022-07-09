@@ -208,7 +208,7 @@
 							<div class="text-align-right margin-top">
 								<input type="submit" class="btn-text btn-default" value="일괄공개" name="command">
 								<input type="submit" class="btn-text btn-default" value="일괄삭제" name="command">
-								<a class="btn-text btn-default" href="reg.html">글쓰기</a>				
+								<a class="btn-text btn-default" href="reg">글쓰기</a>				
 							</div>
 					</form>
 							<div class="margin-top align-center pager">	
