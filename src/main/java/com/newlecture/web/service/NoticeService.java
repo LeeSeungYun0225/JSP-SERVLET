@@ -79,7 +79,7 @@ public class NoticeService {
 	public boolean insertNotice(Notice notice) //공지를 올리고 성공시 true 실패시 false 반환
 	{
 		
-		String sql = "INSERT INTO NOTICE(TITLE,CONTENT,WRITER_ID,PUBLIC,REGDATE) VALUES(?,?,?,?,now())";
+		String sql = "INSERT INTO NOTICE(TITLE,CONTENT,WRITER_ID,PUBLIC,REGDATE,FILES) VALUES(?,?,?,?,now(),?)";
 		int result = 0;
 		
 		try {
@@ -96,6 +96,7 @@ public class NoticeService {
 			 statement.setString(2,notice.getContent());
 			 statement.setString(3,notice.getWriter_id());
 			 statement.setInt(4, notice.getPub()?1:0);
+			 statement.setString(5,notice.getFiles());
 			  result = statement.executeUpdate();
 			 // executeUpdate는 insert / delete / update시에 사용하며
 			 // 성공한 튜플만큼 개수를 반환한다. 
