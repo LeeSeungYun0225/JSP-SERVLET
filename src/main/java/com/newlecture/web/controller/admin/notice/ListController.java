@@ -44,12 +44,19 @@ public class ListController  extends HttpServlet {
 		
 		switch(command)
 		{
+		
 			case "일괄공개":
-				for(String str:openIds)
+
+				NoticeService noticeService_ = new NoticeService();
+				int[] id = new int[openIds.length];
+				for(int i=0;i<openIds.length;i++)
 				{
-					//
+					id[i] = Integer.parseInt(openIds[i]);
 				}
+				int return_ = noticeService_.pubNoticeAll(id);
 				break;
+				
+			
 			case "일괄삭제":
 				NoticeService noticeService = new NoticeService();
 				int[] ids = new int[delIds.length];

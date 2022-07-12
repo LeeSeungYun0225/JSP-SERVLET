@@ -73,7 +73,52 @@ public class NoticeService {
 	}
 	public int pubNoticeAll(int[] ids)//공지를 공개하고 몇개가 공개되었는지 반환
 	{
-		return 0;
+		int publiced = 0;
+		
+		String params = "";
+		
+		for(int i=0;i<ids.length;i++)
+		{
+			params+=ids[i];
+			if(i != ids.length-1)
+			{
+				params+=",";
+			}
+		}
+		
+		
+		String sql = "UPDATE NOTICE SET public = 1 WHERE ID IN("+params+")";
+		
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+			 String adminId = "root";
+			 String adminPass = "!Ekdma0607";
+			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 
+			 
+			 Statement statement = con.createStatement();
+			 publiced = statement.executeUpdate(sql);
+			 // executeUpdate는 insert / delete / update시에 사용하며
+			 // 성공한 튜플만큼 개수를 반환한다. 
+			 //statement는 PreparedStatement에비해 경량화되어있음
+			 
+		
+			 con.close();
+			 statement.close();
+			
+			 
+			 
+			 
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return publiced;
+
 	}
 	
 	public boolean insertNotice(Notice notice) //공지를 올리고 성공시 true 실패시 false 반환
@@ -217,16 +262,17 @@ public class NoticeService {
 		
 	}
 	
-	public List<NoticeView> getNoticeList(String field/*title or writer_id*/,String query/*A*/,int page){
+public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,String query/*A*/,int page){
 		
 		List<NoticeView> list = new ArrayList<NoticeView>();
 	
-		String sql = "SELECT * FROM("
-				+ "				SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM , note.*"
-				+ "				 FROM  (SELECT * FROM NOTICE_VIEW WHERE " + field + " LIKE ?) as note"
-				+ "				  ) as b"
-				+ "				 	WHERE NUM BETWEEN ? AND ?";
+		String sql = " SELECT * FROM("
+				+ "	SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM , note.*"
+				+ " FROM  (SELECT * FROM NOTICE_VIEW WHERE "+field+" LIKE ? AND public = 1) as note"
+				+ "	 ) as b"
+				+ "	WHERE NUM BETWEEN ? AND ?";
 				
+	
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -248,6 +294,7 @@ public class NoticeService {
 			 String title;
 			 String writer_id;
 			 Date regdate;
+			 int pub;
 
 			 ResultSet result = statement.executeQuery();
 			 
@@ -259,7 +306,81 @@ public class NoticeService {
 				 hit = result.getInt("HIT");
 				 files = result.getString("FILES");
 				 cmtcount = result.getInt("COMMENT_COUNT");
+				 pub = result.getInt("public");
 				 NoticeView notice = new NoticeView(id,title,writer_id,regdate,hit,files,cmtcount);
+				 notice.setPubl(pub);
+				 list.add(notice);
+			 }
+			 
+			 
+			 
+			 result.close();
+			 con.close();
+			 statement.close();
+			
+			 
+			 
+			 
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+		
+		
+		return list;
+		
+	}
+	
+	public List<NoticeView> getNoticeList(String field/*title or writer_id*/,String query/*A*/,int page){
+		
+		List<NoticeView> list = new ArrayList<NoticeView>();
+	
+		String sql = " SELECT * FROM("
+				+ "								SELECT row_number() OVER (ORDER BY REGDATE DESC) NUM , note.*"
+				+ "							 FROM  (SELECT * FROM NOTICE_VIEW WHERE "+field+" LIKE ?) as note"
+				+ "							  ) as b"
+				+ "							 	WHERE NUM BETWEEN ? AND ?";
+				
+	
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+			 String adminId = "root";
+			 String adminPass = "!Ekdma0607";
+			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 
+			 
+			 PreparedStatement statement = con.prepareStatement(sql);
+			 statement.setString(1, "%"+query+"%");
+			 statement.setInt(2,1+(page-1)*10);
+			 statement.setInt(3,page*10);
+			 int cmtcount;
+			 String files;
+			 int hit;
+			 int id;
+			 String title;
+			 String writer_id;
+			 Date regdate;
+			 int pub;
+
+			 ResultSet result = statement.executeQuery();
+			 
+			 while(result.next()) {
+				 id = result.getInt("ID");
+				 title = result.getString("TITLE");
+				 writer_id= result.getString("WRITER_ID");
+				 regdate = result.getDate("REGDATE");
+				 hit = result.getInt("HIT");
+				 files = result.getString("FILES");
+				 cmtcount = result.getInt("COMMENT_COUNT");
+				 pub = result.getInt("public");
+				 NoticeView notice = new NoticeView(id,title,writer_id,regdate,hit,files,cmtcount);
+				 notice.setPubl(pub);
 				 list.add(notice);
 			 }
 			 

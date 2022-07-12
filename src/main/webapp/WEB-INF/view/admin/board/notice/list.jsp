@@ -149,12 +149,14 @@
 							<legend class="hidden">공지사항 검색 필드</legend>
 							<label class="hidden">검색분류</label>
 							<select name="f">
-								<option value="title">제목</option>
-								<option value="writerId">작성자</option>
-							</select>
-							<label class="hidden">검색어</label>
-							<input type="text" name="q" value="" />
-							<input class="btn btn-search" type="submit" value="검색" />
+
+								<option ${(param.f == "title")?"selected":""} value="title">제목</option>
+								<option ${(param.f=="writer_Id")?"selected":""} value="writer_Id">작성자</option>
+
+						</select> 
+						<label class="hidden">검색어</label>
+						<input type="text" name="q" value="${param.q}"/>
+						<input class="btn btn-search" type="submit" value="검색" />
 						</fieldset>
 					</form>
 				</div>
@@ -185,8 +187,13 @@
 								<fmt:formatDate pattern="yyyy-MM-dd" value = "${n.date}"/>
 								</td>
 								<td><fmt:formatNumber value = "${n.hit}"/></td>
+								<c:if test ="${n.publ == 1}">
 								
-								<td><input type="checkbox" name="open-id" value="${n.id}"></td>
+									<td><input type="checkbox" name="open-id" checked value="${n.id}"></td>
+								</c:if>
+								<c:if test="${n.publ==0 }">
+									<td><input type="checkbox" name="open-id" value="${n.id}"></td>
+								</c:if>
 								<td><input type="checkbox" name="del-id" value="${n.id}"></td>
 							</tr>
 
