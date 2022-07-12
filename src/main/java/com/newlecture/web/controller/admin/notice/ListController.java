@@ -40,6 +40,8 @@ public class ListController  extends HttpServlet {
 		
 		String command = request.getParameter("command");
 		
+		
+		
 		switch(command)
 		{
 			case "일괄공개":
@@ -72,11 +74,13 @@ public class ListController  extends HttpServlet {
 		int page_ = 1;
 		List<NoticeView> list;
 		int count_ = 1;
-		
+		String did = null;
+		did = request.getParameter("did");
 		
 		String field = request.getParameter("f");
 		String query = request.getParameter("q");
 		String page = request.getParameter("p");	
+		
 		
 		
 		NoticeService service = new NoticeService();
@@ -91,6 +95,13 @@ public class ListController  extends HttpServlet {
 		if(query!=null && !query.equals(""))
 		{
 			query_ = query;
+		}
+		
+		
+		if(did != null)
+		{
+			service.deleteNotice(Integer.parseInt(did));
+		
 		}
 		
 		count_ = service.getNoticeCount(field_,query_);
@@ -108,12 +119,7 @@ public class ListController  extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-					
-		    	
-
-		 
+	
 	}
 	
 	

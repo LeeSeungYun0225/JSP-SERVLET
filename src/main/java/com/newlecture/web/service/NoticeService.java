@@ -120,8 +120,44 @@ public class NoticeService {
 	public boolean deleteNotice(int id) // 공지를 삭제하고 성공시 true 반환
 	{
 		
+		int deleted = 0;
 		
-		return true;
+
+		
+		
+		String sql = "DELETE FROM NOTICE WHERE ID =?";
+		
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
+			 String adminId = "root";
+			 String adminPass = "!Ekdma0607";
+			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 
+			 
+			 PreparedStatement statement = con.prepareStatement(sql);
+			 statement.setInt(1,id);
+			 deleted = statement.executeUpdate();
+			 // executeUpdate는 insert / delete / update시에 사용하며
+			 // 성공한 튜플만큼 개수를 반환한다. 
+			 //statement는 PreparedStatement에비해 경량화되어있음
+			 
+		
+			 con.close();
+			 statement.close();
+			
+			 
+			 
+			 
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return deleted==1?true:false;
 	}
 	
 	public boolean updateNotice(Notice notice)//공지를 업데이트하고 성공시 true 반환

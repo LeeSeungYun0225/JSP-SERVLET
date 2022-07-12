@@ -47,10 +47,6 @@ public class Calculator2 extends HttpServlet{
 		//was에 의해 세션 관리 
 		// 타임아웃 되면 이후 새로운 요청을 하면 새로운 세션으로 인식 
 		
-		
-		
-	
-		
 		if(in.equals("=")) //연산 버튼 누르면 
 		{
 			//int x= (int) session.getAttribute("value");

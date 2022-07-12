@@ -196,12 +196,12 @@
                     </table>
                 </div>
                 
-			<form method="post" action="detail">
+			<form method="get" action="detail">
                 <div class="margin-top text-align-center">
                 	<a type="null" name="id" value="id"></a>
                     <a class="btn-text btn-cancel" name ="list" href="list">목록</a>
                     <a class="btn-text btn-default" name ="edit" value="edit" href="edit">수정</a>
-                    <input type="submit" class="btn-text btn-default" value="삭제" name="delete">
+                    <a href= "list?did=${notice.id}" class="btn-text btn-default" value="삭제" name="delete">삭제</a>
                    
                 </div>
 			</form>
