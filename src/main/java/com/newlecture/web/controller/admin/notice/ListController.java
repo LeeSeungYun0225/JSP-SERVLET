@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,30 +36,36 @@ public class ListController  extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String[] openIds = request.getParameterValues("open-id");
+		String[] openIds = request.getParameterValues("open-id"); // 공개 선택된 녀석만 전달됨 
 		String[] delIds = request.getParameterValues("del-id");
-		
+		String ids_ = request.getParameter("ids");
+		String[] ids_close = ids_.trim().split(" ");
 		String command = request.getParameter("command");
 		
-		
+		NoticeService noticeService = new NoticeService();
 		
 		switch(command)
 		{
 		
 			case "일괄공개":
-
-				NoticeService noticeService_ = new NoticeService();
-				int[] id = new int[openIds.length];
-				for(int i=0;i<openIds.length;i++)
-				{
-					id[i] = Integer.parseInt(openIds[i]);
-				}
-				int return_ = noticeService_.pubNoticeAll(id);
+				
+				
+				
+				
+				List<String> oids = Arrays.asList(openIds);
+				
+				List<String> cids = new ArrayList(Arrays.asList(ids_close));
+				System.out.println(cids.toString());
+				cids.removeAll(oids);
+				System.out.println(oids.toString());
+				
+				int return_ = noticeService.pubNoticeAll(oids,cids);
+				
 				break;
 				
 			
 			case "일괄삭제":
-				NoticeService noticeService = new NoticeService();
+				
 				int[] ids = new int[delIds.length];
 				for(int i=0;i<delIds.length;i++)
 				{

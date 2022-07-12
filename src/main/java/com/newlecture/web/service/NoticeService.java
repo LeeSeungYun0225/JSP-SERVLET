@@ -71,55 +71,101 @@ public class NoticeService {
 		
 		return deleted;
 	}
-	public int pubNoticeAll(int[] ids)//공지를 공개하고 몇개가 공개되었는지 반환
+	
+	public int pubNoticeAll(int[] oids,int[] cids)
 	{
-		int publiced = 0;
-		
-		String params = "";
-		
-		for(int i=0;i<ids.length;i++)
+		List<String> oidsList = new ArrayList<>();
+		List<String> cidsList = new ArrayList<>();
+		for(int i=0;i<oids.length;i++)
 		{
-			params+=ids[i];
-			if(i != ids.length-1)
-			{
-				params+=",";
-			}
+			oidsList.add(String.valueOf(oids[i]));
+		}
+		for(int i=0;i<cids.length;i++)
+		{
+			cidsList.add(String.valueOf(cids[i]));
 		}
 		
 		
-		String sql = "UPDATE NOTICE SET public = 1 WHERE ID IN("+params+")";
 		
+		return pubNoticeAll(oidsList,cidsList);
+	}
+	
+	public int pubNoticeAll(String oidsCSV,String cidsCSV)
+	{
+		
+		int result_O = 0;
+		int result_C = 0;
+		
+		
+		
+		String sql_O = "UPDATE NOTICE SET public = 1 WHERE ID IN("+oidsCSV+")";
+		String sql_C = "UPDATE NOTICE SET public = 0 WHERE ID IN("+cidsCSV+")";
+		Connection con = null;
+		Statement statement_O = null;
+		Statement statement_C = null;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
 			 String adminId = "root";
 			 String adminPass = "!Ekdma0607";
-			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
+			 con = DriverManager.getConnection(url,adminId,adminPass);
+			 
+			 con.setAutoCommit(false); // 오토 커밋을 false로 설정 
 			 
 			 
-			 
-			 Statement statement = con.createStatement();
-			 publiced = statement.executeUpdate(sql);
+			 statement_O = con.createStatement();
+			 statement_C = con.createStatement();
+			 result_O = statement_O.executeUpdate(sql_O);
+			 result_C = statement_C.executeUpdate(sql_C);
 			 // executeUpdate는 insert / delete / update시에 사용하며
 			 // 성공한 튜플만큼 개수를 반환한다. 
 			 //statement는 PreparedStatement에비해 경량화되어있음
 			 
-		
-			 con.close();
-			 statement.close();
-			
-			 
-			 
-			 
+			 con.commit(); // 모든 쿼리가 실행 완료되었을 시점에 커밋 수행 
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
+			if(con!= null)// 예외 발생시 커넥션이 열려있으면 
+			{
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} // 롤백한다 
+			}
 			e.printStackTrace();
 		}
+		finally
+		{
+			
+			 try {
+				con.close();
+				statement_C.close();
+				statement_O.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		}
 		
-		return publiced;
-
+		return result_O+result_C;
+		
 	}
+		
+	public int pubNoticeAll(List<String> oids,List<String> cids)//공지를 공개하고 몇개가 공개되었는지 반환
+	{
+		String oidsCSV = String.join(",",oids);
+		String cidsCSV = String.join(",",cids);;
+		//String.join : 구분자로 문자를 연결해줌 
+		
+		return pubNoticeAll(oidsCSV,cidsCSV);
+	
+	}
+	
+	
 	
 	public boolean insertNotice(Notice notice) //공지를 올리고 성공시 true 실패시 false 반환
 	{
@@ -204,6 +250,9 @@ public class NoticeService {
 		
 		return deleted==1?true:false;
 	}
+	
+	
+	
 	
 	public boolean updateNotice(Notice notice)//공지를 업데이트하고 성공시 true 반환
 	{

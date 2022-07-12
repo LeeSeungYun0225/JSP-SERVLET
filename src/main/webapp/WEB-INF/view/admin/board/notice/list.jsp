@@ -213,6 +213,11 @@
 								<div><span class="text-orange text-strong">${(empty param.p)?1:param.p}</span> / ${lastNum} pages</div>
 							</div>
 							<div class="text-align-right margin-top">
+								<c:set var="ids" value=""/>
+								<c:forEach var="n" items = "${list}">
+									<c:set var="ids" value="${ids} ${n.id}"/>
+								</c:forEach>
+								<input type="hidden" value = "${ids}" name ="ids"/>
 								<input type="submit" class="btn-text btn-default" value="일괄공개" name="command">
 								<input type="submit" class="btn-text btn-default" value="일괄삭제" name="command">
 								<a class="btn-text btn-default" href="reg">글쓰기</a>				
