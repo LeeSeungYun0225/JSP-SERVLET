@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.newlecture.web.constants.Dbconstants;
 import com.newlecture.web.entity.Notice;
 import com.newlecture.web.entity.NoticeView;
 
@@ -44,9 +45,9 @@ public class NoticeService {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -106,9 +107,9 @@ public class NoticeService {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 con.setAutoCommit(false); // 오토 커밋을 false로 설정 
@@ -174,10 +175,10 @@ public class NoticeService {
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -221,9 +222,9 @@ public class NoticeService {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -325,9 +326,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -397,9 +398,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -472,9 +473,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -518,9 +519,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -576,9 +577,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 
@@ -629,9 +630,9 @@ public List<NoticeView> getNoticePubList(String field/*title or writer_id*/,Stri
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url  = "jdbc:mysql://localhost:3306/servlet?useSSL=false";
-			 String adminId = "root";
-			 String adminPass = "!Ekdma0607";
+			 String url  = Dbconstants.Db_address;
+			 String adminId = Dbconstants.Db_id;
+			 String adminPass = Dbconstants.Db_pass;
 			 Connection con = DriverManager.getConnection(url,adminId,adminPass);
 			 
 			 

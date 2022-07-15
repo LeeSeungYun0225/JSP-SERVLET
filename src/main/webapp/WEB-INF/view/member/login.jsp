@@ -2,29 +2,27 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
-<title>"${member.name}" </title>
-<link href="/css/admin/layout.css" type="text/css" rel="stylesheet" />
-<style>
+    <title>코딩 전문가를 만들기 위한 온라인 강의 시스템</title>
+    <meta charset="UTF-8">
+    <title>공지사항목록</title>
     
-    #visual .content-container{	
-        height:inherit;
-        display:flex; 
-        align-items: center;
-        
-        background: url("/images/mypage/visual.png") no-repeat center;
-    }
-</style>
+    <link href="/css/member/layout.css" type="text/css" rel="stylesheet" />
+    <style>
+    
+        #visual .content-container{	
+            height:inherit;
+            display:flex; 
+            align-items: center;
+            
+            background: url("../../images/customer/visual.png") no-repeat center;
+        }
+    </style>
 </head>
+
 <body>
-	<!-- header 부분 -->
-	
-
-
-
-
+    <!-- header 부분 -->
     <header id="header">
         
         <div class="content-container">
@@ -44,6 +42,7 @@
                     <h1>메인메뉴</h1>
                     <ul>
                         <li><a href="/guide">학습가이드</a></li>
+
                         <li><a href="/course">강좌선택</a></li>
                         <li><a href="/answeris/index">AnswerIs</a></li>
                     </ul>
@@ -87,6 +86,8 @@
         
     </header>
 
+
+<script src="/resource/js/header.js"></script>
 	<!-- --------------------------- <visual> --------------------------------------- -->
 	<!-- visual 부분 -->
 	
@@ -102,52 +103,107 @@
 			
 
 
-			<aside class="aside">
-				<h1>ADMIN PAGE</h1>
+			<aside class="aside">				
+				<h1>회원가입</h1>
 
 				<nav class="menu text-menu first margin-top">
-					<h1>마이페이지</h1>
+					<h1>회원메뉴</h1>
 					<ul>
-						<li><a href="/admin/index.html">관리자홈</a></li>						
-						<li><a href="/teacher/index.html">선생님페이지</a></li>
-						<li><a href="/student/index.html">수강생페이지</a></li>
+						<li><a href="/member/login.html">로그인</a></li>
+						<li><a href="/member/join.html">회원가입</a></li>
+						<li><a href="/member/">아이디찾기</a></li>
+						<li><a href="/member/t">비밀번호 재발급</a></li>
 					</ul>
 				</nav>
+
 				
-				<nav class="menu text-menu">
-					<h1>알림관리</h1>
-					<ul>						
-						<li><a href="/admin/board/notice/list.html">공지사항</a></li>				
-					</ul>
-				</nav>
-								
+
+
+	<nav class="menu">
+		<h1>협력업체</h1>
+		<ul>
+			<li><a target="_blank" href="http://www.notepubs.com"><img src="../images/notepubs.png" alt="노트펍스" /></a></li>
+			<li><a target="_blank" href="http://www.namoolab.com"><img src="../images/namoolab.png" alt="나무랩연구소" /></a></li>
+		</ul>
+	</nav>
+
+				<!-- <nav class="menu">
+					<h1>협찬광고</h1>
+					<ul>
+		                <li style="width:181px;overflow:hidden;">                            
+                                             
+		                </li>  
+                        <li style="width:181px;overflow:hidden;">                            
+                                                
+		                </li>
+                    </ul>					
+				</nav> -->
 			</aside>
 			<!-- --------------------------- main --------------------------------------- -->
 			
 			<!-- content 부분 -->
 			
-	<main class="main">
-		<h2 class="main title">관리자홈</h2>
-		
-		<div class="breadcrumb">
-			<h3 class="hidden">breadlet</h3>
-			<ul>
-				<li>home</li>
-				<li>마이페이지</li>
-				<li>홈</li>
-			</ul>
-		</div>
-		
-		<div class="margin-top first">
-		
-		</div>
-		
-	</main>
+
+
+            <main>
+                <h2 class="main title">로그인</h2>
+        
+                <div class="breadcrumb">
+                    <h3 class="hidden">breadlet</h3>
+                    <ul>
+                        <li>home</li>
+                        <li>회원</li>
+                        <li>로그인</li>
+                    </ul>
+                </div>
+        
+                <div class="margin-top first">
+                    <h3 class="hidden">로그인 정보 입력</h3>
+                    <form class="login-form" method="post">
+                        <fieldset>
+                            <legend class="hidden">로그인 폼</legend>
+                            <h4>
+                                <img src="../images/member/txt-title.png" />
+                            </h4>
+                            <ul class="login-box">
+                                <li>
+                                    <label for="uid">아이디</label>
+                                    <input type="text" name="username" placeholder="아이디" /></li>
+                                <li>
+                                    <label for="pwd">비밀번호</label>
+                                    <input type="password" 	name="password" placeholder="비밀번호"/></li>
+                            </ul>
+                            
+                            <div class="login-btn-box">
+                                <input type="hidden" name="" value="" />
+                                <input type="submit" class="btn login-btn"/>
+                            </div>
+                            <ul class="login-option">
+                                <li>
+                                    <span>아이디 또는 비밀번호를 분실하셨나요?</span>
+                                    <a href="find-id">
+                                        <img alt="ID/PWD 찾기" src="../images/member/btn-find.png" />
+                                    </a>
+                                </li>
+                                <li class="margin-top">
+                                    <span>아이디가 없으신 분은 회원가입을 해주세요.</span>
+                                    <a href="agree">
+                                        <img alt="회원가입" src="../images/member/btn-join.png" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                </div>
+        
+            </main>
+
 			
 		</div>
 	</div>
 	<!-- ------------------- <footer> --------------------------------------- -->
-	
+
+
 
         <footer id="footer">
             <div class="content-container">
