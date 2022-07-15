@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.newlecture.web.entity.Notice;
 import com.newlecture.web.entity.NoticeView;
@@ -41,6 +42,16 @@ public class ListController  extends HttpServlet {
 		String ids_ = request.getParameter("ids");
 		String[] ids_close = ids_.trim().split(" ");
 		String command = request.getParameter("command");
+		
+		
+		String logout = request.getParameter("logout");
+		if(logout.equals("confirm"))
+		{
+			HttpSession session = request.getSession();
+			session.removeAttribute("member");
+			response.sendRedirect("/member/login");
+		}
+		
 		
 		NoticeService noticeService = new NoticeService();
 		

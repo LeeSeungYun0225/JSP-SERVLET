@@ -12,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.newlecture.web.entity.Member;
 import com.newlecture.web.entity.Notice;
 import com.newlecture.web.service.NoticeService;
 
@@ -48,6 +50,17 @@ public class RegController extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String isOpen = request.getParameter("open");
+		HttpSession session = request.getSession(); 
+		Member member = (Member) session.getAttribute("member");
+		
+		
+		String logout = request.getParameter("logout");
+		if(logout.equals("confirm"))
+		{
+			session.removeAttribute("member");
+			response.sendRedirect("/member/login");
+		}
+		
 		
 		StringBuilder strBuilder = new StringBuilder();
 		
@@ -118,7 +131,7 @@ public class RegController extends HttpServlet {
 		notice.setContent(content);
 		notice.setTitle(title);
 		notice.setPub(pub);
-		notice.setWriter_id("Tester");
+		notice.setWriter_id(member.getId());
 		notice.setFiles(strBuilder.toString());
 		NoticeService service = new NoticeService();
 		

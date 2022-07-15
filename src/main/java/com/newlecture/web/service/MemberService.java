@@ -1,5 +1,7 @@
 package com.newlecture.web.service;
 
+import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.newlecture.web.constants.Dbconstants;
 import com.newlecture.web.entity.Member;
@@ -68,6 +74,8 @@ public class MemberService // Login / Sign Dao
 		}
 		return result==1?true:false;
 	}
+	
+
 	
 	public boolean memberLogin(Member member) // 로그인 서비스 
 	{

@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>${member.name}님 환영합니다.</title>
+	<c:if test="${member.name==null}">
+		<title>환영합니다.</title>
+	</c:if>
+	<c:if test="${member.name!=null}">
+		<title>${member.name}님 환영합니다.</title>
+	</c:if>
+
     <meta charset="UTF-8">
     <title>공지사항목록</title>
 
@@ -21,7 +28,7 @@
             <!-- ---------------------------<header>--------------------------------------- -->
 
             <h1 id="logo">
-                <a href="/index.html">
+                <a href="/index">
                     <img src="/images/logo.png" alt="뉴렉처 온라인" />
 
                 </a>
@@ -57,9 +64,21 @@
                     <nav id="acount-menu">
                         <h1 class="hidden">회원메뉴</h1>
                         <ul>
-                            <li><a href="/index.html">HOME</a></li>
-                            <li><a href="/member/login.html">로그인</a></li>
-                            <li><a href="/member/agree.html">회원가입</a></li>
+                            <li><a href="/index">HOME</a></li>
+                            <c:if test = "${member.name==null}">
+                            	<li><a href="/member/login">로그인</a></li>
+                            </c:if>
+                            <c:if test="${member.name!=null}">
+                            <li>
+                                <form  method="post">
+                                    <input type="hidden" name="logout" value="confirm" />
+                                    <input type="submit" value="로그아웃"
+                                        style="border:none;background: none;vertical-align: middle;font-size: 10px;color:#979797;font-weight: bold;" />
+
+                                </form>
+                            </li>
+                            </c:if>
+                            <li><a href="/member/agree">회원가입</a></li>
                         </ul>
                     </nav>
 
@@ -67,7 +86,7 @@
                         <h1 class="hidden">고객메뉴</h1>
                         <ul class="linear-layout">
                             <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지" /></a></li>
-                            <li><a href="/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
+                            <li><a href="/notice/list"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
                         </ul>
                     </nav>
 
@@ -146,35 +165,35 @@
 
                     <li>
                         <span class="notice-title">
-                            <a href="notice/detail.html">스프링 8강까지의 예제 코드</a>
+                            <a href="notice/detail">스프링 8강까지의 예제 코드</a>
                         </span>
                         <span>2019-08-18</span>
                     </li>
 
                     <li>
                         <span class="notice-title">
-                            <a href="notice/detail.html">스프링 DI 예제 코드</a>
+                            <a href="notice/detail">스프링 DI 예제 코드</a>
                         </span>
                         <span>2019-08-15</span>
                     </li>
 
                     <li>
                         <span class="notice-title">
-                            <a href="notice/detail.html">뉴렉쌤 9월 초 국기과정 모집 안내</a>
+                            <a href="notice/detail">뉴렉쌤 9월 초 국기과정 모집 안내</a>
                         </span>
                         <span>2019-06-11</span>
                     </li>
 
                     <li>
                         <span class="notice-title">
-                            <a href="notice/detail.html">뉴렉처 강의 수강 방식 안내</a>
+                            <a href="notice/detail">뉴렉처 강의 수강 방식 안내</a>
                         </span>
                         <span>2019-05-24</span>
                     </li>
 
                     <li>
                         <span class="notice-title">
-                            <a href="notice/detail.html">자바 구조적인 프로그래밍 강의 예제 파일</a>
+                            <a href="notice/detail">자바 구조적인 프로그래밍 강의 예제 파일</a>
                         </span>
                         <span>2019-04-24</span>
                     </li>

@@ -13,8 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.newlecture.web.entity.Notice;
+import com.newlecture.web.service.MemberService;
 import com.newlecture.web.service.NoticeService;
 import com.newlecture.web.service.NoticeService.IdTitle;
 
@@ -60,6 +62,15 @@ public class DetailController extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		
-		System.out.println("id ::: " + request.getParameter("id"));
+			
+		
+		String logout = request.getParameter("logout");
+		if(logout.equals("confirm"))
+		{
+			HttpSession session = request.getSession();
+			session.removeAttribute("member");
+			response.sendRedirect("/member/login");
+		}
+		
 	}
 }

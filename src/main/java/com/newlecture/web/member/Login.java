@@ -42,7 +42,7 @@ public class Login extends HttpServlet{
 		if(result) // 로그인 성공시 
 		{
 			HttpSession session = request.getSession(); // 세션 정보 저장 
-			session.setAttribute("member",member);
+			session.setAttribute("member",member); 
 			response.sendRedirect("/index");	
 		}
 		else
